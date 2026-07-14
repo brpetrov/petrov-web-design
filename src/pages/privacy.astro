@@ -1,0 +1,57 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { site } from "../data/site";
+import { withBase } from "../lib/url";
+---
+
+<BaseLayout
+  title={`Privacy Policy | ${site.studioName}`}
+  description="How Petrov Web Studio handles your data."
+>
+  <header class="border-b border-line">
+    <div class="mx-auto max-w-3xl px-5 py-5">
+      <a href={withBase("")} class="flex items-center gap-2.5 font-display text-lg font-700 text-ink">
+        <span class="grid h-8 w-8 place-items-center rounded-lg bg-ink text-accent-400">P</span>
+        {site.studioName}
+      </a>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-3xl px-5 py-16 md:py-24">
+    <h1 class="font-display text-4xl font-700 text-ink">Privacy Policy</h1>
+    <div class="mt-8 space-y-7 text-[15px] leading-relaxed text-ink-soft">
+      <p>
+        {site.studioName} ({site.owner}) respects your privacy. This policy explains what
+        happens to the information you send through this website.
+      </p>
+
+      <div>
+        <h2 class="font-display text-xl font-600 text-ink">What I collect</h2>
+        <p class="mt-2">
+          Only what you type into the contact form — your name, email, business name and
+          message. It's sent straight to my inbox so I can reply. I don't build a mailing
+          list and I don't sell or share it with anyone.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-xl font-600 text-ink">How the form works</h2>
+        <p class="mt-2">
+          The contact form is delivered by Web3Forms, which forwards the message to my
+          email address and does not retain it. No account, tracking or advertising cookies
+          are set by this site.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-display text-xl font-600 text-ink">Your rights</h2>
+        <p class="mt-2">
+          You can ask what I hold about you, or ask me to delete it, at any time — just
+          email <a href={`mailto:${site.email}`} class="font-500 text-accent-600 hover:underline">{site.email}</a>.
+        </p>
+      </div>
+    </div>
+
+    <a href={withBase("")} class="mt-12 inline-block text-sm font-600 text-accent-600 hover:underline">← Back to home</a>
+  </main>
+</BaseLayout>
