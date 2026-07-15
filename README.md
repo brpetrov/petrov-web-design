@@ -1,12 +1,12 @@
-# Petrov Web Studio
+# Petrov Web Design
 
-The studio's own sales page — aimed at local business owners, not recruiters. One
+The business's own sales page — aimed at local business owners, not recruiters. One
 page: the fixed £600 package, live example sites, how it works, straight answers to
 the usual objections, and a contact form.
 
 **Live:**
-- https://petrov-web-studio.pages.dev (Cloudflare Pages — primary)
-- https://brpetrov.github.io/petrov-web-studio/ (GitHub Pages — mirror)
+- https://petrov-web-design.pages.dev (Cloudflare Pages — primary)
+- https://brpetrov.github.io/petrov-web-design/ (GitHub Pages — mirror)
 
 ## Stack
 
@@ -44,7 +44,7 @@ npm run build    # static build to dist/
 ## Deploy
 
 Pushing to `main` runs `.github/workflows/deploy.yml`, which builds twice: once for
-GitHub Pages (with the `/petrov-web-studio` base path) and once for Cloudflare Pages
+GitHub Pages (with the `/petrov-web-design` base path) and once for Cloudflare Pages
 (`DEPLOY_TARGET=cf`, served at the root). Cloudflare needs the repo secrets
 `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
 

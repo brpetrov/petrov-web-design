@@ -1,4 +1,4 @@
-// GitHub Pages serves this site under /petrov-web-studio/, so asset URLs and
+// GitHub Pages serves this site under /petrov-web-design/, so asset URLs and
 // internal links must be prefixed with the configured base. Cloudflare serves
 // at the root, where BASE_URL is "/".
 export const base = import.meta.env.BASE_URL.endsWith("/")

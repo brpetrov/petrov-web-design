@@ -4,11 +4,12 @@
 
 export const site = {
   // --- Identity ---------------------------------------------------------
-  studioName: "Petrov Web Studio",
+  studioName: "Petrov Web Design",
   owner: "Boyan Petrov",
   location: "Leeds & West Yorkshire",
-  // The contact form routes here via Web3Forms regardless of what is shown.
-  email: "brpetrov@outlook.com",
+  // Business email — kept for reference only. Intentionally NOT shown anywhere on
+  // the site (owner preference); enquiries come through the contact form instead.
+  email: "petrov.websites@gmail.com",
   // Leave phone empty to hide the phone line until a business number is set.
   phoneDisplay: "",
   phoneHref: "",
@@ -30,7 +31,7 @@ export const site = {
   },
 
   seo: {
-    title: "Petrov Web Studio | Websites for local businesses — £600, live in 2 weeks",
+    title: "Petrov Web Design | Websites for local businesses — £600, live in 2 weeks",
     description:
       "A professional, fast, mobile-friendly website for your business — £600, live in 2 weeks. Built by a local software developer in Leeds. Real examples inside.",
   },
@@ -70,21 +71,36 @@ export const included = [
   },
 ];
 
-// The two live demo sites shown as proof.
+// Work shown as proof. The two demos are the core (they're what I sell); the
+// two client builds show range. Leave `url` empty for a private/unlinked build.
 export const examples = [
   {
     name: "Marsden & Son Plumbing",
-    kind: "Trade business",
+    kind: "Trade demo",
     goal: "Built to make the phone ring — big call button, service area, fast callback form.",
     image: "images/example-marsden.jpg",
     url: "https://marsden-plumbing.pages.dev",
   },
   {
     name: "The Fade Room",
-    kind: "Barbershop",
+    kind: "Barbershop demo",
     goal: "Built for bookings — pick a slot without picking up the phone, price list, gallery.",
     image: "images/example-fade-room.jpg",
     url: "https://fade-room-batley.pages.dev",
+  },
+  {
+    name: "Alpha Mode",
+    kind: "Online store",
+    goal: "A bold, product-led site for a supplement brand — clean storefront built to sell.",
+    image: "images/example-alphamode.jpg",
+    url: "https://alphamode.netlify.app",
+  },
+  {
+    name: "Emlaak Property",
+    kind: "Property marketplace",
+    goal: "A Rightmove-style property portal with search, listings and maps — a bigger custom build.",
+    image: "images/example-algeria.jpg",
+    url: "",
   },
 ];
 

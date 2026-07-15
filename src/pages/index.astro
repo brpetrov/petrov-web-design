@@ -118,38 +118,48 @@ import { site, included, examples, steps, faqs } from "../data/site";
         <div class="max-w-2xl">
           <h2 class="font-display text-3xl font-700 text-ink md:text-4xl">See it for real</h2>
           <p class="mt-4 text-lg text-muted">
-            Two live example sites — one built to make the phone ring, one built for
-            bookings. Open them on your phone; that's where your customers are.
+            Two demo sites for local businesses like yours, plus a couple of bigger
+            builds to show the range. Best viewed on your phone — that's where your
+            customers are.
           </p>
         </div>
         <div class="mt-12 grid gap-8 md:grid-cols-2">
-          {examples.map((ex) => (
-            <a
-              href={ex.url}
-              target="_blank"
-              rel="noopener"
-              class="group block overflow-hidden rounded-card border border-line bg-white transition-all hover:-translate-y-1 hover:shadow-lg"
-            >
-              <div class="aspect-[16/10] overflow-hidden border-b border-line bg-sand">
-                <img
-                  src={withBase(ex.image)}
-                  alt={`${ex.name} — example website`}
-                  width="800"
-                  height="500"
-                  loading="lazy"
-                  class="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-              </div>
-              <div class="p-6">
-                <span class="text-xs font-600 uppercase tracking-wider text-accent-600">{ex.kind}</span>
-                <h3 class="mt-2 flex items-center gap-2 font-display text-xl font-600 text-ink">
-                  {ex.name}
-                  <Icon name="external-link" size={16} class="text-muted transition-colors group-hover:text-accent-600" />
-                </h3>
-                <p class="mt-2 text-[15px] leading-relaxed text-muted">{ex.goal}</p>
-              </div>
-            </a>
-          ))}
+          {examples.map((ex) => {
+            const Tag = ex.url ? "a" : "div";
+            const linkProps = ex.url ? { href: ex.url, target: "_blank", rel: "noopener" } : {};
+            return (
+              <Tag
+                {...linkProps}
+                class:list={[
+                  "group block overflow-hidden rounded-card border border-line bg-white transition-all",
+                  ex.url ? "hover:-translate-y-1 hover:shadow-lg" : "",
+                ]}
+              >
+                <div class="aspect-[16/10] overflow-hidden border-b border-line bg-sand">
+                  <img
+                    src={withBase(ex.image)}
+                    alt={`${ex.name} — example website`}
+                    width="800"
+                    height="500"
+                    loading="lazy"
+                    class="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
+                </div>
+                <div class="p-6">
+                  <span class="text-xs font-600 uppercase tracking-wider text-accent-600">{ex.kind}</span>
+                  <h3 class="mt-2 flex items-center gap-2 font-display text-xl font-600 text-ink">
+                    {ex.name}
+                    {ex.url ? (
+                      <Icon name="external-link" size={16} class="text-muted transition-colors group-hover:text-accent-600" />
+                    ) : (
+                      <span class="rounded-full bg-sand px-2 py-0.5 text-[11px] font-600 uppercase tracking-wide text-muted">Private build</span>
+                    )}
+                  </h3>
+                  <p class="mt-2 text-[15px] leading-relaxed text-muted">{ex.goal}</p>
+                </div>
+              </Tag>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -267,7 +277,7 @@ import { site, included, examples, steps, faqs } from "../data/site";
             <ul class="mt-8 space-y-4 text-ink-soft">
               <li class="flex items-center gap-3">
                 <span class="grid h-10 w-10 place-items-center rounded-xl bg-accent-100 text-accent-600"><Icon name="mail" size={20} /></span>
-                <a href={`mailto:${site.email}`} class="font-500 hover:text-accent-600">{site.email}</a>
+                <span class="font-500">Drop me a message using the form &rarr;</span>
               </li>
               {site.phoneDisplay && (
                 <li class="flex items-center gap-3">
@@ -288,8 +298,8 @@ import { site, included, examples, steps, faqs } from "../data/site";
             class="rounded-card border border-line bg-white p-7 shadow-sm"
           >
             <input type="hidden" name="access_key" value={site.web3formsKey} />
-            <input type="hidden" name="subject" value="New enquiry from Petrov Web Studio" />
-            <input type="hidden" name="from_name" value="Petrov Web Studio website" />
+            <input type="hidden" name="subject" value="New enquiry from Petrov Web Design" />
+            <input type="hidden" name="from_name" value="Petrov Web Design website" />
             <!-- Honeypot -->
             <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
 
