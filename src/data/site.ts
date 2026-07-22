@@ -25,19 +25,19 @@ export const site = {
 
   // --- The offer --------------------------------------------------------
   offer: {
-    price: "£600",
+    price: "£499",
     timeline: "live in 2 weeks",
     carePrice: "£25/month",
   },
 
   seo: {
-    title: "Petrov Web Design | Websites for local businesses — £600, live in 2 weeks",
+    title: "Petrov Web Design | Websites for local businesses — £499, live in 2 weeks",
     description:
-      "A professional, fast, mobile-friendly website for your business — £600, live in 2 weeks. Built by a local software developer in Leeds. Real examples inside.",
+      "A professional, fast, mobile-friendly website for your business — £499, live in 2 weeks. Built by a local software developer in Leeds. Real examples inside.",
   },
 } as const;
 
-// What the £600 package includes — the fixed scope, spelled out for the buyer.
+// What the £499 package includes — the fixed scope, spelled out for the buyer.
 export const included = [
   {
     icon: "layout",
@@ -89,6 +89,13 @@ export const examples = [
     url: "https://fade-room-batley.pages.dev",
   },
   {
+    name: "Fern & Petal",
+    kind: "Florist demo",
+    goal: "Built to sell beautiful flowers — occasions, a bouquet gallery and same-day local delivery.",
+    image: "images/example-fern-and-petal.jpg",
+    url: "https://fern-and-petal.pages.dev",
+  },
+  {
     name: "Alpha Mode",
     kind: "Online store",
     goal: "A bold, product-led site for a supplement brand — clean storefront built to sell.",
@@ -136,7 +143,7 @@ export const faqs = [
   },
   {
     q: "I saw someone doing websites for £150.",
-    a: "A £150 site is usually a template with your name pasted in — no SEO setup, no support afterwards. Mine is £600 because it's built to actually bring you calls and bookings, and I'm around after launch to keep it working.",
+    a: "A £150 site is usually a template with your name pasted in — no SEO setup, no support afterwards. Mine is £499 because it's built to actually bring you calls and bookings, and I'm around after launch to keep it working.",
   },
   {
     q: "I get all my work from word of mouth — do I even need one?",
@@ -148,6 +155,6 @@ export const faqs = [
   },
   {
     q: "How does payment work?",
-    a: "Fixed price, no surprises. 50% to book your slot and start, the balance before it goes live. Bank transfer, proper invoice. That's it.",
+    a: "Fixed price, no surprises. £200 to book your slot and start, the balance (£299) before it goes live. Bank transfer, proper invoice. That's it.",
   },
 ];
