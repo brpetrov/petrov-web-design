@@ -49,5 +49,39 @@ const jsonLd = {
   </head>
   <body class="antialiased">
     <slot />
+
+    <!-- Regional pricing: eurozone visitors (incl. Bulgaria & Malta) see € prices.
+         Display-only text swap — SEO meta, invoices and contracts stay in GBP. -->
+    <script is:inline>
+      (function () {
+        var EUR_TZ = [
+          "Europe/Sofia", "Europe/Malta", "Europe/Dublin", "Europe/Berlin",
+          "Europe/Paris", "Europe/Madrid", "Europe/Rome", "Europe/Amsterdam",
+          "Europe/Brussels", "Europe/Vienna", "Europe/Lisbon", "Europe/Athens",
+          "Europe/Helsinki", "Europe/Bratislava", "Europe/Ljubljana", "Europe/Riga",
+          "Europe/Vilnius", "Europe/Tallinn", "Europe/Luxembourg", "Europe/Nicosia",
+          "Europe/Zagreb",
+        ];
+        var MAP = [
+          ["£499", "€549"],
+          ["£299", "€299"],
+          ["£200", "€250"],
+          ["£25/month", "€29/month"],
+          ["£150", "€175"],
+        ];
+        try {
+          var tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+          if (EUR_TZ.indexOf(tz) === -1) return;
+          var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+          var nodes = [], n;
+          while ((n = walker.nextNode())) if (n.nodeValue.indexOf("£") !== -1) nodes.push(n);
+          nodes.forEach(function (node) {
+            var t = node.nodeValue;
+            MAP.forEach(function (p) { t = t.split(p[0]).join(p[1]); });
+            node.nodeValue = t;
+          });
+        } catch (e) { /* default GBP */ }
+      })();
+    </script>
   </body>
 </html>
