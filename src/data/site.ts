@@ -96,6 +96,13 @@ export const examples = [
     url: "https://fern-and-petal.pages.dev",
   },
   {
+    name: "The Tidy Home Co.",
+    kind: "Cleaning demo",
+    goal: "Built to win regular customers — live price calculator and pick-your-slot booking, right on the page.",
+    image: "images/example-tidy-home.jpg",
+    url: "https://tidy-home-co.pages.dev",
+  },
+  {
     name: "Alpha Mode",
     kind: "Online store",
     goal: "A bold, product-led site for a supplement brand — clean storefront built to sell.",
