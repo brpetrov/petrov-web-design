@@ -9,10 +9,11 @@ import { site, included, examples, steps, faqs } from "../data/site";
 <BaseLayout>
   <!-- ================= HEADER ================= -->
   <header class="sticky top-0 z-50 border-b border-line bg-paper/85 backdrop-blur">
-    <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
-      <a href="#top" class="flex items-center gap-2.5 font-display text-lg font-700 tracking-tight text-ink">
-        <span class="grid h-8 w-8 place-items-center rounded-lg bg-ink text-accent-400">P</span>
-        {site.studioName}
+    <div class="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-4 sm:px-5">
+      <a href="#top" class="flex items-center gap-2.5 whitespace-nowrap font-display text-[17px] font-700 tracking-tight text-ink sm:text-lg">
+        <span class="grid h-8 w-8 shrink-0 place-items-center rounded-lg bg-ink text-accent-400">P</span>
+        <!-- Wordmark drops on ultra-narrow phones so the header never overflows. -->
+        <span class="hidden min-[350px]:inline">{site.studioName}</span>
       </a>
       <nav class="hidden items-center gap-8 text-sm font-500 text-ink-soft md:flex">
         <a href="#included" class="transition-colors hover:text-accent-600">What you get</a>
@@ -22,9 +23,10 @@ import { site, included, examples, steps, faqs } from "../data/site";
       </nav>
       <a
         href="#contact"
-        class="rounded-full bg-accent-600 px-5 py-2.5 text-sm font-600 text-white shadow-sm transition-all hover:bg-accent-700 hover:shadow-md"
+        class="shrink-0 whitespace-nowrap rounded-full bg-accent-600 px-4 py-2.5 text-sm font-600 text-white shadow-sm transition-all hover:bg-accent-700 hover:shadow-md sm:px-5"
       >
-        Get a free look
+        <span class="sm:hidden">Free mock-up</span>
+        <span class="hidden sm:inline">Get a free mock-up</span>
       </a>
     </div>
   </header>
@@ -56,19 +58,22 @@ import { site, included, examples, steps, faqs } from "../data/site";
             <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
               <a
                 href="#contact"
-                class="group inline-flex items-center justify-center gap-2 rounded-full bg-accent-600 px-7 py-3.5 text-base font-600 text-white shadow-lift transition-all hover:-translate-y-0.5 hover:bg-accent-700"
+                class="group inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full bg-accent-600 px-7 py-3.5 text-base font-600 text-white shadow-lift transition-all hover:-translate-y-0.5 hover:bg-accent-700"
               >
-                Get a free look at your site
+                Get my free mock-up
                 <Icon name="arrow-right" size={18} class="transition-transform group-hover:translate-x-1" />
               </a>
               <a
                 href="#work"
-                class="inline-flex items-center justify-center gap-2 rounded-full border border-line bg-white/50 px-7 py-3.5 text-base font-600 text-ink transition-colors hover:bg-white"
+                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full border border-line bg-white/50 px-7 py-3.5 text-base font-600 text-ink transition-colors hover:bg-white"
               >
                 See real examples
               </a>
             </div>
-            <p class="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">
+            <p class="mt-5 text-sm text-muted">
+              No charge, no obligation — the mock-up's yours to keep either way.
+            </p>
+            <p class="mt-2.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">
               <Icon name="zap" size={15} class="text-accent-500" />
               <span id="speed-note">Built to load fast on any connection — yours will be too.</span>
             </p>
@@ -361,11 +366,12 @@ import { site, included, examples, steps, faqs } from "../data/site";
       <div class="mx-auto max-w-6xl px-5 py-20 md:py-28">
         <div class="grid gap-12 lg:grid-cols-2">
           <div>
-            <h2 class="font-display text-3xl font-700 text-ink md:text-4xl">Let's have a look at your site</h2>
+            <h2 class="font-display text-3xl font-700 text-ink md:text-4xl">Let's see what yours could look like</h2>
             <p class="mt-4 text-lg leading-relaxed text-muted">
-              Tell me a bit about your business and I'll send back a free, no-strings
-              review of your current site — or a quick idea of what a new one could look
-              like. Reply usually within a day.
+              Tell me a bit about your business and I'll put together a free mock-up of
+              what your site could look like — or an honest review of the one you've
+              already got. No charge, no obligation, and it's yours to keep either way.
+              Reply usually within a day.
             </p>
             <ul class="mt-8 space-y-4 text-ink-soft">
               <li class="flex items-center gap-3">
