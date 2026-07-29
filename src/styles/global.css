@@ -40,6 +40,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* One calm easing curve shared by every transition on the site. */
+  --ease-calm: cubic-bezier(0.33, 0, 0.25, 1);
 }
 
 body {
@@ -107,19 +109,26 @@ h1, h2, h3, h4 {
   mask-image: radial-gradient(70% 60% at 50% 0%, #000 0%, transparent 75%);
 }
 
-/* Crossfade for the cycling device screenshots. */
+/* Crossfade for the cycling device screenshots. Long and gentle — the two
+   slides overlap for most of it, so it reads as a dissolve, not a flick. */
 .slide {
   opacity: 0;
-  transition: opacity 0.6s ease;
+  transition: opacity 1.2s var(--ease-calm);
 }
 .slide.is-active {
   opacity: 1;
 }
 
+/* Carousel dots: the active bar stretches open rather than snapping. */
+.ds-bar {
+  transition:
+    width 0.85s var(--ease-calm),
+    background-color 0.85s var(--ease-calm);
+}
+
 /* Hover lift for cards. Calm, even easing (no overshoot, no hard deceleration)
    with a short travel distance — the card should drift, not jump. */
 .hover-lift {
-  --ease-calm: cubic-bezier(0.33, 0, 0.25, 1);
   transition:
     transform 0.5s var(--ease-calm),
     box-shadow 0.5s var(--ease-calm),
@@ -170,7 +179,8 @@ h1, h2, h3, h4 {
     transform: none;
     transition: none;
   }
-  .slide {
+  .slide,
+  .ds-bar {
     transition: none;
   }
 }

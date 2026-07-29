@@ -81,10 +81,8 @@ const shots = [
         >
           <span
             class:list={[
-              "ds-bar block h-2.5 rounded-full transition-all duration-500",
-              i === 0
-                ? "w-8 bg-accent-600"
-                : "w-2.5 bg-ink/15 group-hover/dot:bg-ink/35",
+              "ds-bar block h-2.5 rounded-full",
+              i === 0 ? "w-8 bg-accent-600" : "w-2.5 bg-ink/15 group-hover/dot:bg-ink/35",
             ]}
           />
         </button>
@@ -122,7 +120,7 @@ const shots = [
         var bar = t.querySelector(".ds-bar");
         if (bar) {
           bar.className =
-            "ds-bar block h-2.5 rounded-full transition-all duration-500 " +
+            "ds-bar block h-2.5 rounded-full " +
             (on ? "w-8 bg-accent-600" : "w-2.5 bg-ink/15 group-hover/dot:bg-ink/35");
         }
       });
@@ -135,7 +133,7 @@ const shots = [
     // instantly instead of animating.
     function start() {
       stop();
-      timer = setInterval(function () { show((current + 1) % tabs.length); }, 3000);
+      timer = setInterval(function () { show((current + 1) % tabs.length); }, 5500);
     }
     function stop() { if (timer) clearInterval(timer); timer = null; }
 
