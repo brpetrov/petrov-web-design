@@ -86,9 +86,9 @@ import { site, included, examples, steps, faqs } from "../data/site";
       <div class="mx-auto grid max-w-6xl gap-8 px-5 py-10 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
         {[
           { n: "7", suffix: "+", label: "years building software", sub: "professionally, day in day out" },
-          { n: "6", suffix: "", label: "sites you can click", sub: "not mockups — real, live builds" },
           { n: "2", suffix: " wks", label: "from content to live", sub: "start to finish, predictable" },
           { n: "1", suffix: "", label: "fixed price", sub: "no hourly creep, no surprises" },
+          { n: "24", suffix: "h", label: "typical reply", sub: "a real person, not a ticket queue" },
         ].map((s) => (
           <div>
             <div class="font-display text-4xl font-700 tracking-tight text-ink">
@@ -115,15 +115,62 @@ import { site, included, examples, steps, faqs } from "../data/site";
           <div
             data-reveal
             style={`--reveal-delay:${i * 70}ms`}
-            class="group rounded-card border border-line bg-white/60 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-400 hover:bg-white hover:shadow-lift"
+            class="group hover-lift rounded-card border border-line bg-white/60 p-6 hover:-translate-y-1 hover:border-accent-400 hover:bg-white hover:shadow-lift"
           >
-            <span class="grid h-12 w-12 place-items-center rounded-xl bg-accent-100 text-accent-600 transition-colors duration-300 group-hover:bg-accent-600 group-hover:text-white">
+            <span class="lift-icon grid h-12 w-12 place-items-center rounded-xl bg-accent-100 text-accent-600 group-hover:bg-accent-600 group-hover:text-white">
               <Icon name={item.icon} size={24} />
             </span>
             <h3 class="mt-5 font-display text-lg font-600 text-ink">{item.title}</h3>
             <p class="mt-2 text-[15px] leading-relaxed text-muted">{item.body}</p>
           </div>
         ))}
+      </div>
+    </section>
+
+    <!-- ================= FIX WORK ================= -->
+    <section class="mx-auto max-w-6xl px-5 pb-20 md:pb-28">
+      <div
+        class="grain relative overflow-hidden rounded-card border border-line bg-white/70 p-8 md:p-10"
+        data-reveal
+      >
+        <div class="pointer-events-none absolute -right-20 -top-24 h-64 w-64 rounded-full bg-accent-100 opacity-70 blur-3xl"></div>
+        <div class="relative grid gap-8 lg:grid-cols-[1.15fr_1fr] lg:items-center">
+          <div>
+            <span class="text-sm font-600 uppercase tracking-wider text-accent-600">Already have a website?</span>
+            <h2 class="mt-3 font-display text-2xl font-700 text-ink md:text-3xl">
+              I fix things too — you don't need a whole new site.
+            </h2>
+            <p class="mt-4 text-[17px] leading-relaxed text-muted">
+              Plenty of jobs are an hour's work, not a rebuild. If something on your site is
+              broken, slow or just annoying you, send me the link and I'll tell you honestly
+              what's wrong and what it'd take to sort — free, no obligation. Bigger changes,
+              new pages and ongoing tweaks are all fine as well.
+            </p>
+            <a
+              href="#contact"
+              class="group mt-7 inline-flex items-center gap-2 font-600 text-accent-700 link-underline"
+            >
+              Tell me what's wrong with yours
+              <Icon name="arrow-right" size={17} class="transition-transform group-hover:translate-x-1" />
+            </a>
+          </div>
+
+          <ul class="grid gap-2.5 sm:grid-cols-2">
+            {[
+              "Contact forms that don't arrive",
+              "Slow, heavy pages",
+              "Looks broken on phones",
+              "Not showing up on Google",
+              "Out-of-date prices or content",
+              "Bugs and odd behaviour",
+            ].map((fix) => (
+              <li class="flex items-start gap-2.5 rounded-xl border border-line bg-paper/70 px-3.5 py-3 text-[15px] text-ink-soft">
+                <Icon name="check" size={17} class="mt-0.5 shrink-0 text-accent-600" />
+                {fix}
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -150,8 +197,8 @@ import { site, included, examples, steps, faqs } from "../data/site";
                 data-reveal
                 style={`--reveal-delay:${(i % 2) * 90}ms`}
                 class:list={[
-                  "group block overflow-hidden rounded-card border border-line bg-white transition-all duration-300",
-                  ex.url ? "hover:-translate-y-1.5 hover:shadow-float" : "",
+                  "group hover-lift block overflow-hidden rounded-card border border-line bg-white",
+                  ex.url ? "hover:-translate-y-1.5 hover:border-accent-400/70 hover:shadow-float" : "",
                 ]}
               >
                 <div class="flex items-center gap-2 border-b border-line bg-sand/70 px-3 py-2">
@@ -171,7 +218,7 @@ import { site, included, examples, steps, faqs } from "../data/site";
                     width="800"
                     height="500"
                     loading="lazy"
-                    class="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                    class="lift-media h-full w-full object-cover object-top group-hover:scale-[1.025]"
                   />
                 </div>
                 <div class="p-6">
@@ -210,9 +257,9 @@ import { site, included, examples, steps, faqs } from "../data/site";
             <div
               data-reveal
               style={`--reveal-delay:${i * 90}ms`}
-              class="group relative rounded-card border border-line bg-white/60 p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-lift"
+              class="group hover-lift relative rounded-card border border-line bg-white/60 p-6 hover:-translate-y-1 hover:bg-white hover:shadow-lift"
             >
-              <span class="grid h-11 w-11 place-items-center rounded-full border border-line bg-paper font-display text-lg font-700 text-accent-600 transition-colors duration-300 group-hover:border-accent-600 group-hover:bg-accent-600 group-hover:text-white">
+              <span class="lift-icon grid h-11 w-11 place-items-center rounded-full border border-line bg-paper font-display text-lg font-700 text-accent-600 group-hover:border-accent-600 group-hover:bg-accent-600 group-hover:text-white">
                 {step.n}
               </span>
               <h3 class="mt-4 font-display text-lg font-600 text-ink">{step.title}</h3>
