@@ -103,7 +103,6 @@ const shots = [
     var urlEl = root.querySelector(".ds-url");
     var current = 0;
     var timer = null;
-    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     // Slides beyond the first only download when they're first needed.
     function load(i) {
@@ -131,8 +130,10 @@ const shots = [
       load((i + 1) % tabs.length); // warm the next one so the crossfade never flashes
     }
 
+    // Rotation runs for everyone. Visitors with reduced-motion enabled still get
+    // to see all four sites — the CSS drops the crossfade for them so slides swap
+    // instantly instead of animating.
     function start() {
-      if (reduce) return;
       stop();
       timer = setInterval(function () { show((current + 1) % tabs.length); }, 3000);
     }
@@ -143,6 +144,9 @@ const shots = [
     tabs.forEach(function (t, i) {
       t.addEventListener("click", function () { show(i); start(); });
     });
+    // Hold still while someone is tabbing through the dots with a keyboard.
+    root.addEventListener("focusin", stop);
+    root.addEventListener("focusout", start);
     document.addEventListener("visibilitychange", function () {
       document.hidden ? stop() : start();
     });
