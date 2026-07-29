@@ -133,7 +133,7 @@ const shots = [
     // instantly instead of animating.
     function start() {
       stop();
-      timer = setInterval(function () { show((current + 1) % tabs.length); }, 5500);
+      timer = setInterval(function () { show((current + 1) % tabs.length); }, 6000);
     }
     function stop() { if (timer) clearInterval(timer); timer = null; }
 
