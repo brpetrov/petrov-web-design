@@ -53,9 +53,92 @@ h1, h2, h3, h4 {
   letter-spacing: -0.02em;
 }
 
+/* ---------------------------------------------------------------------------
+   CRAFT LAYER
+   Small, deliberate details: entrance animation, depth, and texture. Everything
+   here degrades to plain static content if JS or motion is unavailable.
+   --------------------------------------------------------------------------- */
+
+/* Scroll reveal — elements start hidden only once JS confirms it can run,
+   so no-JS visitors always see content. */
+.js [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.js [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Soft, layered elevation — warmer and less "bootstrap" than a flat shadow. */
+.shadow-lift {
+  box-shadow:
+    0 1px 2px rgba(22, 19, 15, 0.04),
+    0 8px 20px -8px rgba(22, 19, 15, 0.10),
+    0 26px 50px -24px rgba(22, 19, 15, 0.16);
+}
+.shadow-float {
+  box-shadow:
+    0 2px 6px rgba(22, 19, 15, 0.05),
+    0 18px 40px -12px rgba(22, 19, 15, 0.18),
+    0 50px 90px -40px rgba(22, 19, 15, 0.28);
+}
+
+/* Fine paper grain — sits over the warm background at very low opacity. */
+.grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='0.055'/%3E%3C/svg%3E");
+}
+
+/* Hairline grid, used behind the hero. */
+.grid-lines {
+  background-image:
+    linear-gradient(to right, rgba(22, 19, 15, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(22, 19, 15, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(70% 60% at 50% 0%, #000 0%, transparent 75%);
+}
+
+/* Crossfade for the cycling device screenshots. */
+.slide {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+.slide.is-active {
+  opacity: 1;
+}
+
+/* Underline that draws itself on hover. */
+.link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1.5px;
+  transition: background-size 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.link-underline:hover {
+  background-size: 100% 1.5px;
+}
+
 /* Respect users who prefer no motion */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .js [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .slide {
+    transition: none;
   }
 }

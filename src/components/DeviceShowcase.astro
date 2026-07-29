@@ -1,0 +1,135 @@
+---
+import { withBase } from "../lib/url";
+
+// Desktop + phone screenshot pairs, taken from the live demo sites.
+const shots = [
+  { label: "Plumber", host: "marsden-plumbing.pages.dev", desktop: "images/example-marsden.jpg", phone: "images/phone-marsden.jpg" },
+  { label: "Barbershop", host: "fade-room-batley.pages.dev", desktop: "images/example-fade-room.jpg", phone: "images/phone-fade-room.jpg" },
+  { label: "Florist", host: "fern-and-petal.pages.dev", desktop: "images/example-fern-and-petal.jpg", phone: "images/phone-fern-and-petal.jpg" },
+  { label: "Cleaners", host: "tidy-home-co.pages.dev", desktop: "images/example-tidy-home.jpg", phone: "images/phone-tidy-home.jpg" },
+];
+---
+
+<div class="device-showcase relative">
+  <!-- Browser frame -->
+  <div class="relative overflow-hidden rounded-2xl border border-line bg-white shadow-float">
+    <div class="flex items-center gap-2 border-b border-line bg-sand/80 px-3.5 py-2.5">
+      <span class="flex gap-1.5">
+        <span class="h-2.5 w-2.5 rounded-full bg-[#f0685f]"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-[#f7bf4f]"></span>
+        <span class="h-2.5 w-2.5 rounded-full bg-[#61c554]"></span>
+      </span>
+      <span
+        class="ds-url mx-auto max-w-[70%] truncate rounded-md bg-white/90 px-3 py-1 text-[11px] font-500 text-muted sm:text-xs"
+      >
+        {shots[0].host}
+      </span>
+    </div>
+
+    <div class="relative aspect-[16/10] bg-sand">
+      {
+        shots.map((s, i) => (
+          <img
+            src={withBase(s.desktop)}
+            alt={`${s.label} website example`}
+            width="1280"
+            height="800"
+            loading={i === 0 ? "eager" : "lazy"}
+            class:list={["slide absolute inset-0 h-full w-full object-cover object-top", i === 0 && "is-active"]}
+            data-ds-desktop={i}
+          />
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Phone frame, overlapping -->
+  <div
+    class="absolute -bottom-6 -right-2 w-[26%] min-w-[86px] max-w-[132px] rounded-[1.4rem] border-[3px] border-ink bg-ink p-[3px] shadow-float sm:-right-6"
+  >
+    <div class="relative overflow-hidden rounded-[1.1rem] bg-white" style="aspect-ratio:390/844">
+      {
+        shots.map((s, i) => (
+          <img
+            src={withBase(s.phone)}
+            alt={`${s.label} website on a phone`}
+            width="390"
+            height="844"
+            loading={i === 0 ? "eager" : "lazy"}
+            class:list={["slide absolute inset-0 h-full w-full object-cover object-top", i === 0 && "is-active"]}
+            data-ds-phone={i}
+          />
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Selector -->
+  <div class="mt-9 flex flex-wrap items-center gap-2" role="tablist" aria-label="Example websites">
+    {
+      shots.map((s, i) => (
+        <button
+          type="button"
+          role="tab"
+          aria-selected={i === 0 ? "true" : "false"}
+          data-ds-tab={i}
+          class:list={[
+            "ds-tab rounded-full border px-3.5 py-1.5 text-[13px] font-600 transition-colors",
+            i === 0
+              ? "border-accent-600 bg-accent-600 text-white"
+              : "border-line bg-white/60 text-muted hover:border-accent-400 hover:text-ink",
+          ]}
+        >
+          {s.label}
+        </button>
+      ))
+    }
+  </div>
+</div>
+
+<script is:inline define:vars={{ hosts: shots.map((s) => s.host) }}>
+  (function () {
+    var root = document.querySelector(".device-showcase");
+    if (!root) return;
+    var tabs = root.querySelectorAll("[data-ds-tab]");
+    var desktops = root.querySelectorAll("[data-ds-desktop]");
+    var phones = root.querySelectorAll("[data-ds-phone]");
+    var urlEl = root.querySelector(".ds-url");
+    var current = 0;
+    var timer = null;
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    function show(i) {
+      current = i;
+      desktops.forEach(function (el, n) { el.classList.toggle("is-active", n === i); });
+      phones.forEach(function (el, n) { el.classList.toggle("is-active", n === i); });
+      tabs.forEach(function (t, n) {
+        var on = n === i;
+        t.setAttribute("aria-selected", String(on));
+        t.className =
+          "ds-tab rounded-full border px-3.5 py-1.5 text-[13px] font-600 transition-colors " +
+          (on
+            ? "border-accent-600 bg-accent-600 text-white"
+            : "border-line bg-white/60 text-muted hover:border-accent-400 hover:text-ink");
+      });
+      if (urlEl) urlEl.textContent = hosts[i];
+    }
+
+    function start() {
+      if (reduce) return;
+      stop();
+      timer = setInterval(function () { show((current + 1) % tabs.length); }, 3800);
+    }
+    function stop() { if (timer) clearInterval(timer); timer = null; }
+
+    tabs.forEach(function (t, i) {
+      t.addEventListener("click", function () { show(i); stop(); });
+    });
+    root.addEventListener("mouseenter", stop);
+    root.addEventListener("mouseleave", start);
+    document.addEventListener("visibilitychange", function () {
+      document.hidden ? stop() : start();
+    });
+    start();
+  })();
+</script>

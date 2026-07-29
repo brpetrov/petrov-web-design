@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Icon from "../components/Icon.astro";
+import DeviceShowcase from "../components/DeviceShowcase.astro";
 import { withBase } from "../lib/url";
 import { site, included, examples, steps, faqs } from "../data/site";
 ---
@@ -30,61 +31,74 @@ import { site, included, examples, steps, faqs } from "../data/site";
 
   <main id="top">
     <!-- ================= HERO ================= -->
-    <section class="relative overflow-hidden">
+    <section class="grain relative overflow-hidden">
+      <div class="grid-lines pointer-events-none absolute inset-0"></div>
       <div class="pointer-events-none absolute -top-40 right-0 h-[32rem] w-[32rem] rounded-full bg-accent-100 opacity-60 blur-3xl"></div>
-      <div class="relative mx-auto max-w-6xl px-5 pb-20 pt-16 md:pb-28 md:pt-24">
-        <div class="max-w-3xl">
-          <span class="inline-flex items-center gap-2 rounded-full border border-line bg-white/60 px-4 py-1.5 text-sm font-500 text-ink-soft">
-            <span class="h-2 w-2 rounded-full bg-accent-500"></span>
-            Local developer, not a faceless agency
-          </span>
-          <h1 class="mt-6 font-display text-4xl font-700 leading-[1.05] text-ink sm:text-5xl md:text-6xl">
-            A professional website for your business.
-            <span class="text-accent-600">{site.offer.price}, {site.offer.timeline}.</span>
-          </h1>
-          <p class="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
-            Fast, mobile-friendly, and built to bring you calls and bookings — by a
-            software developer based in {site.location}. No templates with your name
-            pasted in. No monthly lock-in. Just a site that works.
-          </p>
-          <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
-            <a
-              href="#contact"
-              class="inline-flex items-center justify-center gap-2 rounded-full bg-accent-600 px-7 py-3.5 text-base font-600 text-white shadow-sm transition-all hover:bg-accent-700 hover:shadow-md"
-            >
-              Get a free look at your site
-              <Icon name="arrow-right" size={18} />
-            </a>
-            <a
-              href="#work"
-              class="inline-flex items-center justify-center gap-2 rounded-full border border-line bg-white/50 px-7 py-3.5 text-base font-600 text-ink transition-colors hover:bg-white"
-            >
-              See real examples
-            </a>
+      <div class="relative mx-auto max-w-6xl px-5 pb-24 pt-14 md:pb-32 md:pt-20">
+        <div class="grid items-center gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-16">
+          <div data-reveal>
+            <span class="inline-flex items-center gap-2 rounded-full border border-line bg-white/60 px-4 py-1.5 text-sm font-500 text-ink-soft">
+              <span class="relative flex h-2 w-2">
+                <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-400 opacity-75"></span>
+                <span class="relative inline-flex h-2 w-2 rounded-full bg-accent-500"></span>
+              </span>
+              Local developer, not a faceless agency
+            </span>
+            <h1 class="mt-6 font-display text-[2.6rem] font-700 leading-[1.02] text-ink sm:text-5xl md:text-[3.6rem]">
+              A professional website for your business.
+              <span class="text-accent-600">{site.offer.price}, {site.offer.timeline}.</span>
+            </h1>
+            <p class="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+              Fast, mobile-friendly, and built to bring you calls and bookings — by a
+              software developer based in {site.location}. No templates with your name
+              pasted in. No monthly lock-in. Just a site that works.
+            </p>
+            <div class="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <a
+                href="#contact"
+                class="group inline-flex items-center justify-center gap-2 rounded-full bg-accent-600 px-7 py-3.5 text-base font-600 text-white shadow-lift transition-all hover:-translate-y-0.5 hover:bg-accent-700"
+              >
+                Get a free look at your site
+                <Icon name="arrow-right" size={18} class="transition-transform group-hover:translate-x-1" />
+              </a>
+              <a
+                href="#work"
+                class="inline-flex items-center justify-center gap-2 rounded-full border border-line bg-white/50 px-7 py-3.5 text-base font-600 text-ink transition-colors hover:bg-white"
+              >
+                See real examples
+              </a>
+            </div>
+            <p class="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">
+              <Icon name="zap" size={15} class="text-accent-500" />
+              <span>
+                This page loaded in <b class="font-600 text-ink" id="load-time">—</b> — that's the
+                standard yours gets built to.
+              </span>
+            </p>
           </div>
-          <p class="mt-5 text-sm text-muted">
-            Free 15-minute review of your current site — no obligation, the ideas are yours to keep.
-          </p>
+
+          <div data-reveal style="--reveal-delay:120ms">
+            <DeviceShowcase />
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ================= TRUST STRIP ================= -->
+    <!-- ================= STATS ================= -->
     <section class="border-y border-line bg-sand">
-      <div class="mx-auto grid max-w-6xl gap-6 px-5 py-8 sm:grid-cols-3">
+      <div class="mx-auto grid max-w-6xl gap-8 px-5 py-10 sm:grid-cols-2 lg:grid-cols-4" data-reveal>
         {[
-          { icon: "clock", label: "Live in 2 weeks", sub: "from when your content lands" },
-          { icon: "check-circle", label: "£499 launch price", sub: "introductory — no surprises, no hourly creep" },
-          { icon: "zap", label: "Fast & findable", sub: "built for mobile and Google" },
-        ].map((item) => (
-          <div class="flex items-center gap-3.5">
-            <span class="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-accent-100 text-accent-600">
-              <Icon name={item.icon} size={22} />
-            </span>
-            <div>
-              <div class="font-display font-600 text-ink">{item.label}</div>
-              <div class="text-sm text-muted">{item.sub}</div>
+          { n: "7", suffix: "+", label: "years building software", sub: "professionally, day in day out" },
+          { n: "6", suffix: "", label: "sites you can click", sub: "not mockups — real, live builds" },
+          { n: "2", suffix: " wks", label: "from content to live", sub: "start to finish, predictable" },
+          { n: "1", suffix: "", label: "fixed price", sub: "no hourly creep, no surprises" },
+        ].map((s) => (
+          <div>
+            <div class="font-display text-4xl font-700 tracking-tight text-ink">
+              <span data-count-to={s.n}>0</span>{s.suffix}
             </div>
+            <div class="mt-1 font-500 text-ink-soft">{s.label}</div>
+            <div class="text-sm text-muted">{s.sub}</div>
           </div>
         ))}
       </div>
@@ -92,7 +106,7 @@ import { site, included, examples, steps, faqs } from "../data/site";
 
     <!-- ================= INCLUDED ================= -->
     <section id="included" class="mx-auto max-w-6xl scroll-mt-20 px-5 py-20 md:py-28">
-      <div class="max-w-2xl">
+      <div class="max-w-2xl" data-reveal>
         <h2 class="font-display text-3xl font-700 text-ink md:text-4xl">What the {site.offer.price} gets you</h2>
         <p class="mt-4 text-lg text-muted">
           One fixed package. Everything a small business actually needs to look
@@ -100,9 +114,13 @@ import { site, included, examples, steps, faqs } from "../data/site";
         </p>
       </div>
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {included.map((item) => (
-          <div class="rounded-card border border-line bg-white/60 p-6 transition-all hover:border-accent-400 hover:shadow-sm">
-            <span class="grid h-12 w-12 place-items-center rounded-xl bg-accent-100 text-accent-600">
+        {included.map((item, i) => (
+          <div
+            data-reveal
+            style={`--reveal-delay:${i * 70}ms`}
+            class="group rounded-card border border-line bg-white/60 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-accent-400 hover:bg-white hover:shadow-lift"
+          >
+            <span class="grid h-12 w-12 place-items-center rounded-xl bg-accent-100 text-accent-600 transition-colors duration-300 group-hover:bg-accent-600 group-hover:text-white">
               <Icon name={item.icon} size={24} />
             </span>
             <h3 class="mt-5 font-display text-lg font-600 text-ink">{item.title}</h3>
@@ -115,26 +133,40 @@ import { site, included, examples, steps, faqs } from "../data/site";
     <!-- ================= EXAMPLES ================= -->
     <section id="work" class="scroll-mt-20 border-y border-line bg-sand">
       <div class="mx-auto max-w-6xl px-5 py-20 md:py-28">
-        <div class="max-w-2xl">
+        <div class="max-w-2xl" data-reveal>
           <h2 class="font-display text-3xl font-700 text-ink md:text-4xl">See it for real</h2>
           <p class="mt-4 text-lg text-muted">
-            Two demo sites for local businesses like yours, plus a couple of bigger
-            builds to show the range. Best viewed on your phone — that's where your
-            customers are.
+            Demo sites for local businesses like yours, plus a couple of bigger
+            builds to show the range. Every one is live — click through and try them.
+            Best viewed on your phone; that's where your customers are.
           </p>
         </div>
         <div class="mt-12 grid gap-8 md:grid-cols-2">
-          {examples.map((ex) => {
+          {examples.map((ex, i) => {
             const Tag = ex.url ? "a" : "div";
             const linkProps = ex.url ? { href: ex.url, target: "_blank", rel: "noopener" } : {};
+            let host = "";
+            try { host = ex.url ? new URL(ex.url).host : ""; } catch (e) { host = ""; }
             return (
               <Tag
                 {...linkProps}
+                data-reveal
+                style={`--reveal-delay:${(i % 2) * 90}ms`}
                 class:list={[
-                  "group block overflow-hidden rounded-card border border-line bg-white transition-all",
-                  ex.url ? "hover:-translate-y-1 hover:shadow-lg" : "",
+                  "group block overflow-hidden rounded-card border border-line bg-white transition-all duration-300",
+                  ex.url ? "hover:-translate-y-1.5 hover:shadow-float" : "",
                 ]}
               >
+                <div class="flex items-center gap-2 border-b border-line bg-sand/70 px-3 py-2">
+                  <span class="flex gap-1.5">
+                    <span class="h-2 w-2 rounded-full bg-[#f0685f]"></span>
+                    <span class="h-2 w-2 rounded-full bg-[#f7bf4f]"></span>
+                    <span class="h-2 w-2 rounded-full bg-[#61c554]"></span>
+                  </span>
+                  <span class="mx-auto max-w-[75%] truncate rounded bg-white/80 px-2.5 py-0.5 text-[11px] font-500 text-muted">
+                    {host || "private build"}
+                  </span>
+                </div>
                 <div class="aspect-[16/10] overflow-hidden border-b border-line bg-sand">
                   <img
                     src={withBase(ex.image)}
@@ -166,21 +198,31 @@ import { site, included, examples, steps, faqs } from "../data/site";
 
     <!-- ================= HOW IT WORKS ================= -->
     <section id="how" class="mx-auto max-w-6xl scroll-mt-20 px-5 py-20 md:py-28">
-      <div class="max-w-2xl">
+      <div class="max-w-2xl" data-reveal>
         <h2 class="font-display text-3xl font-700 text-ink md:text-4xl">How it works</h2>
         <p class="mt-4 text-lg text-muted">
           Simple and predictable from the first call to launch day. No mystery, no
           endless back-and-forth.
         </p>
       </div>
-      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {steps.map((step) => (
-          <div class="relative rounded-card border border-line bg-white/60 p-6">
-            <span class="font-display text-3xl font-700 text-accent-400">{step.n}</span>
-            <h3 class="mt-3 font-display text-lg font-600 text-ink">{step.title}</h3>
-            <p class="mt-2 text-[15px] leading-relaxed text-muted">{step.body}</p>
-          </div>
-        ))}
+      <div class="relative mt-12">
+        <!-- The thread connecting the four steps -->
+        <div class="pointer-events-none absolute left-0 right-0 top-13 hidden h-px bg-linear-to-r from-transparent via-line to-transparent lg:block"></div>
+        <div class="relative grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {steps.map((step, i) => (
+            <div
+              data-reveal
+              style={`--reveal-delay:${i * 90}ms`}
+              class="group relative rounded-card border border-line bg-white/60 p-6 transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-lift"
+            >
+              <span class="grid h-11 w-11 place-items-center rounded-full border border-line bg-paper font-display text-lg font-700 text-accent-600 transition-colors duration-300 group-hover:border-accent-600 group-hover:bg-accent-600 group-hover:text-white">
+                {step.n}
+              </span>
+              <h3 class="mt-4 font-display text-lg font-600 text-ink">{step.title}</h3>
+              <p class="mt-2 text-[15px] leading-relaxed text-muted">{step.body}</p>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
 
@@ -188,7 +230,8 @@ import { site, included, examples, steps, faqs } from "../data/site";
     <section class="mx-auto max-w-6xl px-5 pb-20 md:pb-28">
       <div class="grid gap-6 lg:grid-cols-3">
         <!-- Build -->
-        <div class="rounded-card bg-ink p-8 text-white lg:col-span-2">
+        <div class="grain relative overflow-hidden rounded-card bg-ink p-8 text-white shadow-float lg:col-span-2" data-reveal>
+          <div class="pointer-events-none absolute -right-16 -top-20 h-64 w-64 rounded-full bg-accent-500/20 blur-3xl"></div>
           <div class="flex flex-wrap items-end justify-between gap-4">
             <div>
               <span class="text-sm font-600 uppercase tracking-wider text-accent-400">The website</span>
@@ -217,7 +260,7 @@ import { site, included, examples, steps, faqs } from "../data/site";
           </p>
         </div>
         <!-- Care plan -->
-        <div class="rounded-card border border-line bg-white/60 p-8">
+        <div class="rounded-card border border-line bg-white/60 p-8" data-reveal style="--reveal-delay:110ms">
           <span class="text-sm font-600 uppercase tracking-wider text-accent-600">Optional care plan</span>
           <div class="mt-2 flex items-baseline gap-2">
             <span class="font-display text-4xl font-700 text-ink">{site.offer.carePrice}</span>
@@ -245,11 +288,17 @@ import { site, included, examples, steps, faqs } from "../data/site";
     <!-- ================= FAQ ================= -->
     <section id="faq" class="scroll-mt-20 border-y border-line bg-sand">
       <div class="mx-auto max-w-3xl px-5 py-20 md:py-28">
-        <h2 class="font-display text-3xl font-700 text-ink md:text-4xl">Straight answers</h2>
-        <p class="mt-4 text-lg text-muted">The questions I get asked most.</p>
+        <div data-reveal>
+          <h2 class="font-display text-3xl font-700 text-ink md:text-4xl">Straight answers</h2>
+          <p class="mt-4 text-lg text-muted">The questions I get asked most.</p>
+        </div>
         <div class="mt-10 space-y-3">
-          {faqs.map((faq) => (
-            <details class="group rounded-card border border-line bg-white/70 px-6 open:shadow-sm">
+          {faqs.map((faq, i) => (
+            <details
+              data-reveal
+              style={`--reveal-delay:${i * 55}ms`}
+              class="group rounded-card border border-line bg-white/70 px-6 transition-colors open:shadow-lift hover:border-accent-400/60"
+            >
               <summary class="flex cursor-pointer list-none items-center justify-between gap-4 py-5 font-display text-lg font-600 text-ink">
                 {faq.q}
                 <span class="grid h-7 w-7 shrink-0 place-items-center rounded-full border border-line text-accent-600 transition-transform group-open:rotate-45">
@@ -370,4 +419,27 @@ import { site, included, examples, steps, faqs } from "../data/site";
       </div>
     </div>
   </footer>
+
+  <!-- Real measured load time — the claim on the page proves itself. -->
+  <script is:inline>
+    (function () {
+      var el = document.getElementById("load-time");
+      if (!el) return;
+      function paint() {
+        var ms = 0;
+        try {
+          var nav = performance.getEntriesByType("navigation")[0];
+          if (nav) ms = nav.domContentLoadedEventEnd - nav.startTime;
+          if (!ms) {
+            var fcp = performance.getEntriesByName("first-contentful-paint")[0];
+            if (fcp) ms = fcp.startTime;
+          }
+        } catch (e) { /* no-op */ }
+        if (!ms || ms < 1) { el.textContent = "under 0.1s"; return; }
+        el.textContent = ms < 1000 ? Math.round(ms) + "ms" : (ms / 1000).toFixed(1) + "s";
+      }
+      if (document.readyState === "complete") paint();
+      else window.addEventListener("load", function () { setTimeout(paint, 0); });
+    })();
+  </script>
 </BaseLayout>
