@@ -391,7 +391,23 @@ import { site, included, examples, steps, faqs } from "../data/site";
             </ul>
           </div>
 
+          <!-- Success panel, revealed in place of the form once it sends. -->
+          <div
+            id="enquiry-done"
+            class="hidden rounded-card border border-accent-400 bg-white p-8 text-center shadow-lift"
+          >
+            <span class="mx-auto grid h-14 w-14 place-items-center rounded-full bg-accent-100 text-accent-600">
+              <Icon name="check" size={28} />
+            </span>
+            <h3 class="mt-5 font-display text-2xl font-700 text-ink">Thanks — that's with me</h3>
+            <p class="mt-3 leading-relaxed text-muted">
+              I've got your message and I'll come back to you within a day, usually sooner.
+              If it's urgent, ring me and we'll sort it now.
+            </p>
+          </div>
+
           <form
+            id="enquiry-form"
             action="https://api.web3forms.com/submit"
             method="POST"
             class="rounded-card border border-line bg-white p-7 shadow-sm"
@@ -436,11 +452,14 @@ import { site, included, examples, steps, faqs } from "../data/site";
               </label>
               <button
                 type="submit"
-                class="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-accent-600 px-7 py-3.5 text-base font-600 text-white transition-colors hover:bg-accent-700"
+                class="mt-1 inline-flex items-center justify-center gap-2 rounded-full bg-accent-600 px-7 py-3.5 text-base font-600 text-white transition-colors hover:bg-accent-700 disabled:opacity-70"
               >
-                Send it over
+                <span id="enquiry-btn-text">Send it over</span>
                 <Icon name="arrow-right" size={18} />
               </button>
+              <p id="enquiry-error" class="hidden text-center text-sm font-500 text-[#b4342a]">
+                That didn't send — please ring me instead, or email {site.email}.
+              </p>
               <p class="text-center text-xs text-muted">
                 Goes straight to my inbox. No spam, no list — I'll just reply.
               </p>
@@ -469,6 +488,49 @@ import { site, included, examples, steps, faqs } from "../data/site";
       </div>
     </div>
   </footer>
+
+  <!-- Send the enquiry without leaving the page, then show the thank-you panel.
+       If anything about the request fails, fall back to a normal form POST so a
+       message is never silently lost. -->
+  <script is:inline>
+    (function () {
+      var form = document.getElementById("enquiry-form");
+      var done = document.getElementById("enquiry-done");
+      var errer = document.getElementById("enquiry-error");
+      var btnText = document.getElementById("enquiry-btn-text");
+      if (!form || !done || !window.fetch) return;
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var btn = form.querySelector('button[type="submit"]');
+        errer.classList.add("hidden");
+        if (btn) btn.disabled = true;
+        if (btnText) btnText.textContent = "Sending…";
+
+        fetch(form.action, {
+          method: "POST",
+          headers: { Accept: "application/json" },
+          body: new FormData(form),
+        })
+          .then(function (res) {
+            if (!res.ok) throw new Error("bad status " + res.status);
+            form.classList.add("hidden");
+            done.classList.remove("hidden");
+            done.scrollIntoView({ block: "center", behavior: "smooth" });
+          })
+          .catch(function () {
+            // Native submit() doesn't re-fire this handler, so this is a clean
+            // fallback: the message goes via a normal POST rather than being lost.
+            if (btnText) btnText.textContent = "Send it over";
+            errer.classList.remove("hidden");
+            form.submit();
+          })
+          .finally(function () {
+            if (btn) btn.disabled = false;
+          });
+      });
+    })();
+  </script>
 
   <!-- Real measured render time, from this visitor's own browser. Uses first
        contentful paint (when they actually saw the page). Only upgrades the
