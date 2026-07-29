@@ -70,10 +70,7 @@ import { site, included, examples, steps, faqs } from "../data/site";
             </div>
             <p class="mt-6 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-muted">
               <Icon name="zap" size={15} class="text-accent-500" />
-              <span>
-                This page loaded in <b class="font-600 text-ink" id="load-time">—</b> — that's the
-                standard yours gets built to.
-              </span>
+              <span id="speed-note">Built to load fast on any connection — yours will be too.</span>
             </p>
           </div>
 
@@ -420,26 +417,31 @@ import { site, included, examples, steps, faqs } from "../data/site";
     </div>
   </footer>
 
-  <!-- Real measured load time — the claim on the page proves itself. -->
+  <!-- Real measured render time, from this visitor's own browser. Uses first
+       contentful paint (when they actually saw the page). Only upgrades the
+       sentence when the number is genuinely good — a visitor on a bad connection
+       keeps the plain claim rather than being shown a slow number. -->
   <script is:inline>
     (function () {
-      var el = document.getElementById("load-time");
+      var el = document.getElementById("speed-note");
       if (!el) return;
-      function paint() {
+      function report() {
         var ms = 0;
         try {
-          var nav = performance.getEntriesByType("navigation")[0];
-          if (nav) ms = nav.domContentLoadedEventEnd - nav.startTime;
+          var fcp = performance.getEntriesByName("first-contentful-paint")[0];
+          if (fcp) ms = fcp.startTime;
           if (!ms) {
-            var fcp = performance.getEntriesByName("first-contentful-paint")[0];
-            if (fcp) ms = fcp.startTime;
+            var nav = performance.getEntriesByType("navigation")[0];
+            if (nav) ms = nav.domInteractive - nav.startTime;
           }
-        } catch (e) { /* no-op */ }
-        if (!ms || ms < 1) { el.textContent = "under 0.1s"; return; }
-        el.textContent = ms < 1000 ? Math.round(ms) + "ms" : (ms / 1000).toFixed(1) + "s";
+        } catch (e) { return; }
+        if (!ms || ms < 1 || ms > 1200) return;
+        el.innerHTML =
+          'This page rendered in <b class="font-600 text-ink">' +
+          Math.round(ms) + 'ms</b> on your device — that\'s the standard yours gets built to.';
       }
-      if (document.readyState === "complete") paint();
-      else window.addEventListener("load", function () { setTimeout(paint, 0); });
+      if (document.readyState === "complete") report();
+      else window.addEventListener("load", function () { setTimeout(report, 0); });
     })();
   </script>
 </BaseLayout>

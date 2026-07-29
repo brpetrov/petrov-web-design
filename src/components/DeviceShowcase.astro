@@ -3,10 +3,10 @@ import { withBase } from "../lib/url";
 
 // Desktop + phone screenshot pairs, taken from the live demo sites.
 const shots = [
+  { label: "Cleaners", host: "tidy-home-co.pages.dev", desktop: "images/example-tidy-home.jpg", phone: "images/phone-tidy-home.jpg" },
   { label: "Plumber", host: "marsden-plumbing.pages.dev", desktop: "images/example-marsden.jpg", phone: "images/phone-marsden.jpg" },
   { label: "Barbershop", host: "fade-room-batley.pages.dev", desktop: "images/example-fade-room.jpg", phone: "images/phone-fade-room.jpg" },
   { label: "Florist", host: "fern-and-petal.pages.dev", desktop: "images/example-fern-and-petal.jpg", phone: "images/phone-fern-and-petal.jpg" },
-  { label: "Cleaners", host: "tidy-home-co.pages.dev", desktop: "images/example-tidy-home.jpg", phone: "images/phone-tidy-home.jpg" },
 ];
 ---
 
@@ -26,15 +26,16 @@ const shots = [
       </span>
     </div>
 
-    <div class="relative aspect-[16/10] bg-sand">
+    <div class="relative aspect-16/10 bg-sand">
       {
         shots.map((s, i) => (
           <img
-            src={withBase(s.desktop)}
+            src={i === 0 ? withBase(s.desktop) : undefined}
+            data-src={i === 0 ? undefined : withBase(s.desktop)}
             alt={`${s.label} website example`}
             width="1280"
             height="800"
-            loading={i === 0 ? "eager" : "lazy"}
+            decoding="async"
             class:list={["slide absolute inset-0 h-full w-full object-cover object-top", i === 0 && "is-active"]}
             data-ds-desktop={i}
           />
@@ -51,11 +52,12 @@ const shots = [
       {
         shots.map((s, i) => (
           <img
-            src={withBase(s.phone)}
+            src={i === 0 ? withBase(s.phone) : undefined}
+            data-src={i === 0 ? undefined : withBase(s.phone)}
             alt={`${s.label} website on a phone`}
             width="390"
             height="844"
-            loading={i === 0 ? "eager" : "lazy"}
+            decoding="async"
             class:list={["slide absolute inset-0 h-full w-full object-cover object-top", i === 0 && "is-active"]}
             data-ds-phone={i}
           />
@@ -65,23 +67,20 @@ const shots = [
   </div>
 
   <!-- Selector -->
-  <div class="mt-9 flex flex-wrap items-center gap-2" role="tablist" aria-label="Example websites">
+  <div class="mt-10 flex items-center justify-center gap-2.5" role="tablist" aria-label="Example websites">
     {
       shots.map((s, i) => (
         <button
           type="button"
           role="tab"
           aria-selected={i === 0 ? "true" : "false"}
+          aria-label={`Show the ${s.label.toLowerCase()} example`}
           data-ds-tab={i}
           class:list={[
-            "ds-tab rounded-full border px-3.5 py-1.5 text-[13px] font-600 transition-colors",
-            i === 0
-              ? "border-accent-600 bg-accent-600 text-white"
-              : "border-line bg-white/60 text-muted hover:border-accent-400 hover:text-ink",
+            "ds-dot h-2 rounded-full transition-all duration-300",
+            i === 0 ? "w-7 bg-accent-600" : "w-2 bg-ink/15 hover:bg-ink/30",
           ]}
-        >
-          {s.label}
-        </button>
+        />
       ))
     }
   </div>
@@ -99,20 +98,27 @@ const shots = [
     var timer = null;
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    // Slides beyond the first only download when they're first needed.
+    function load(i) {
+      [desktops[i], phones[i]].forEach(function (img) {
+        if (img && !img.src && img.dataset.src) img.src = img.dataset.src;
+      });
+    }
+
     function show(i) {
       current = i;
+      load(i);
       desktops.forEach(function (el, n) { el.classList.toggle("is-active", n === i); });
       phones.forEach(function (el, n) { el.classList.toggle("is-active", n === i); });
       tabs.forEach(function (t, n) {
         var on = n === i;
         t.setAttribute("aria-selected", String(on));
         t.className =
-          "ds-tab rounded-full border px-3.5 py-1.5 text-[13px] font-600 transition-colors " +
-          (on
-            ? "border-accent-600 bg-accent-600 text-white"
-            : "border-line bg-white/60 text-muted hover:border-accent-400 hover:text-ink");
+          "ds-dot h-2 rounded-full transition-all duration-300 " +
+          (on ? "w-7 bg-accent-600" : "w-2 bg-ink/15 hover:bg-ink/30");
       });
       if (urlEl) urlEl.textContent = hosts[i];
+      load((i + 1) % tabs.length); // warm the next one so the crossfade never flashes
     }
 
     function start() {
